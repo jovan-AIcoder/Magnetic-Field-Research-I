@@ -14,7 +14,7 @@ if(ModelName in ["Bx","By","Bz"]):
     y_test = df[[ModelName]]
 else:
     print("Model not found")
-    quit
+    exit()
 
 y_pred_scaled = model.predict(time_scaled)
 y_pred = scl_model.inverse_transform(y_pred_scaled)

@@ -16,7 +16,7 @@ if(ModelName in ['Bx','By','Bz']):
     
 else:
     print(f"Magnetic component {ModelName} not found")
-    quit
+    exit()
 
 model = keras.Sequential([
     keras.layers.Dense(64,activation='mish',input_shape=(1,)),
