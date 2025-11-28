@@ -4,23 +4,23 @@ import sklearn.preprocessing as pp
 import pandas as pd
 import matplotlib.pyplot as plt
 df = pd.read_csv('datamagnet.csv')
-waktu = df[['Waktu']]
-scl_waktu = joblib.load('scaler_Waktu.pkl')
-waktu_scaled = scl_waktu.transform(waktu)
-ModelName = input("Masukkan nama model = ")
+time_col = df[['Time']]
+scl_time = joblib.load('scaler_Time.pkl')
+time_scaled = scl_time.transform(time_col)
+ModelName = input("Enter model name (Bx/By/Bz): ")
 if(ModelName in ["Bx","By","Bz"]):
     scl_model = joblib.load(f"scaler_{ModelName}.pkl")
     model = keras.models.load_model(f"Model_{ModelName}.h5",compile=False)
     y_test = df[[ModelName]]
 else:
-    print("Model tidak ditemukan")
+    print("Model not found")
     quit
 
-y_pred_scaled = model.predict(waktu_scaled)
+y_pred_scaled = model.predict(time_scaled)
 y_pred = scl_model.inverse_transform(y_pred_scaled)
-plt.plot(waktu,y_pred)
-plt.scatter(waktu,y_test)
-plt.xlabel("Waktu")
+plt.plot(time_col,y_pred)
+plt.scatter(time_col,y_test)
+plt.xlabel("Time")
 plt.ylabel(ModelName)
-plt.title("Grafik Medan Magnet Bumi")
+plt.title("Earth's Magnetic Field Plot")
 plt.show()

@@ -3,11 +3,11 @@ import pandas as pd
 import sklearn.preprocessing as pp
 import joblib
 df = pd.read_csv('datamagnet.csv')
-X = df[['Waktu']]
-scl_Waktu = pp.MinMaxScaler()
-X_scaled = scl_Waktu.fit_transform(X)
-joblib.dump(scl_Waktu,"scaler_Waktu.pkl")
-ModelName = input("Masukkan komponen medan magnet = ")
+X = df[['Time']]
+scl_Time = pp.MinMaxScaler()
+X_scaled = scl_Time.fit_transform(X)
+joblib.dump(scl_Time,"scaler_Time.pkl")
+ModelName = input("Enter magnetic field component (Bx/By/Bz): ")
 if(ModelName in ['Bx','By','Bz']):
     y_train = df[[ModelName]]
     scl = pp.MinMaxScaler()
@@ -15,7 +15,7 @@ if(ModelName in ['Bx','By','Bz']):
     joblib.dump(scl,f"scaler_{ModelName}.pkl")
     
 else:
-    print(f"Tidak ada komponen magnet {ModelName}")
+    print(f"Magnetic component {ModelName} not found")
     quit
 
 model = keras.Sequential([

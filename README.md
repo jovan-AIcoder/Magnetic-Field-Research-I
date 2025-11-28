@@ -1,111 +1,173 @@
-(This project is made in Indonesian language by Jovan, a physicist)
-Prediksi Variasi Harian Medan Magnet Bumi Menggunakan Deep Neural Networks
+Prediction of Daily Variations of the Earth's Magnetic Field Using Deep Neural Networks
 
-Repositori ini berisi implementasi model Deep Learning berbasis TensorFlow untuk memprediksi komponen-komponen medan magnet bumi (Bx, By, Bz) berdasarkan waktu dalam sehari. Model ini dikembangkan untuk mengeksplorasi dinamika variasi harian medan magnet bumi yang dipengaruhi oleh interaksi ionosfer, arus global, dan proses-proses elektromagnetik lainnya.
+This repository contains a TensorFlow-based deep learning implementation to predict the Earth's magnetic field components (Bx, By, Bz) from time of day. The model is intended to explore daily variation dynamics influenced by ionospheric currents, global current systems, and other electromagnetic processes.
 
-Latar Belakang
+Background
 
-Medan magnet bumi mengalami variasi harian dengan pola yang relatif teratur, terutama dipengaruhi oleh arus ionosfer (Sq currents), radiasi matahari, dan interaksi plasma magnetosfer. Variasi ini sering berada pada orde ribuan nanoTesla (nT) dan dapat dimodelkan secara empiris dengan pendekatan machine learning.
+The Earth's magnetic field exhibits daily variations with relatively regular patterns, primarily driven by ionospheric Sq currents, solar radiation, and magnetospheric plasma interactions. These variations are typically on the order of thousands of nanoTesla (nT) and can be modeled empirically using machine learning approaches.
 
-Model dalam repositori ini menggunakan dataset berdimensi kecil (48 sampel per hari), dengan resolusi waktu 30 menit, untuk mempelajari pola periodik harian pada tiga komponen medan magnet bumi.
+The model in this repository uses a small dataset (48 samples per day) with 30-minute time resolution to learn the daily periodic patterns for the three magnetic field components.
 
-Struktur Model
+Model Structure
 
-Model dibangun menggunakan arsitektur jaringan saraf multilapis dengan karakteristik berikut:
+The model is built as a multilayer feed-forward neural network with the following characteristics:
 
-Arsitektur:
+Architecture:
 64 → 32 → 16 → 8 → 4 → 2 → 1
 
 Activation function:
-Semua layer kecuali output menggunakan Mish/Swish, yang memberikan sifat smooth non-monotonic dan sering lebih stabil dibanding ReLU.
+All hidden layers use Mish/Swish, offering smooth non-monotonic behavior and often more stability compared to ReLU.
 
-Output layer: Linear (tanpa aktivasi), cocok untuk regresi.
+Output layer: Linear (no activation), suitable for regression.
 
-Scale data: MinMaxScaler untuk menstabilkan training.
+Data scaling: MinMaxScaler is used to stabilize training.
 
-Epoch: 300
+Epochs: 300
 
 Optimizer:
-Adamax atau Nadam, dipilih karena stabil untuk dataset kecil.
+Adamax or Nadam were chosen for stability on small datasets.
 
 Loss function:
 Mean Squared Error (MSE)
 
-Rata-rata nilai loss berada pada kisaran:
+Typical loss range observed:
 
-0.0021 – 0.0041 (scaled space)
+0.0021 – 0.0041 (in scaled space)
 
-
-yang menunjukkan fitting yang cukup baik untuk ukuran dataset yang terbatas.
+which indicates reasonably good fitting given the limited dataset size.
 
 Dataset
 
-Dataset yang digunakan berisi:
+Dataset details:
 
-48 sampel
+- 48 samples per day
+- 30-minute time resolution (0.5 hours)
+- Full 24-hour coverage
+- Magnetic field component values in nanoTesla (nT)
 
-Resolusi waktu 30 menit (0.5 jam)
+Source: magnetometer observations (location not specified)
 
-24 jam penuh
+Project Goals
 
-Nilai komponen medan magnet dalam satuan nanoTesla (nT)
+- Test whether a simple neural network can learn daily geomagnetic variations.
+- Evaluate deep learning performance for geophysical modeling with small datasets.
+- Develop a baseline for further research, such as:
+  - geomagnetic storm prediction
+  - correlation with Kp/Dst indices
+  - comparison of physics-based vs data-driven models
 
-Sumber data berasal dari observasi magnetometer (lokasi tidak dinyatakan)
+Files in the Repository
 
-Tujuan Proyek
+File	Description
+`GenerateModel.py`	Main script to train models
+```markdown
+(This project was originally written in Indonesian by Jovan, a physicist)
+Prediction of Daily Variations of the Earth's Magnetic Field Using Deep Neural Networks
 
-Menguji apakah jaringan saraf sederhana dapat mempelajari variasi harian geomagnetik.
+This repository contains a TensorFlow-based deep learning implementation to predict the Earth's magnetic field components (Bx, By, Bz) from time of day. The model is intended to explore daily variation dynamics influenced by ionospheric currents, global current systems, and other electromagnetic processes.
 
-Mengevaluasi performa deep learning untuk pemodelan geofisika dengan dataset kecil.
+Background
 
-Mengembangkan baseline untuk penelitian lanjutan, seperti:
+The Earth's magnetic field exhibits daily variations with relatively regular patterns, primarily driven by ionospheric Sq currents, solar radiation, and magnetospheric plasma interactions. These variations are typically on the order of thousands of nanoTesla (nT) and can be modeled empirically using machine learning approaches.
 
-prediksi badai geomagnetik
+The model in this repository uses a small dataset (48 samples per day) with 30-minute time resolution to learn the daily periodic patterns for the three magnetic field components.
 
-korelasi dengan indeks Kp/Dst
+Model Structure
 
-perbandingan model fisik vs model data-driven
+The model is built as a multilayer feed-forward neural network with the following characteristics:
 
-File dalam Repositori
-File	Deskripsi
-GenerateModel.py	Script utama untuk training model
-Model_Bx.h5	Model terlatih untuk komponen Bx
-Model_By.h5	Model terlatih untuk komponen By
-Model_Bz.h5	Model terlatih untuk komponen Bz
-README.md	Dokumentasi proyek
-Cara Menggunakan
-1. Install dependensi
+Architecture:
+64 → 32 → 16 → 8 → 4 → 2 → 1
+
+Activation function:
+All hidden layers use Mish/Swish, offering smooth non-monotonic behavior and often more stability compared to ReLU.
+
+Output layer: Linear (no activation), suitable for regression.
+
+Data scaling: MinMaxScaler is used to stabilize training.
+
+Epochs: 300
+
+Optimizer:
+Adamax or Nadam were chosen for stability on small datasets.
+
+Loss function:
+Mean Squared Error (MSE)
+
+Typical loss range observed:
+
+0.0021 – 0.0041 (in scaled space)
+
+which indicates reasonably good fitting given the limited dataset size.
+
+Dataset
+
+Dataset details:
+
+- 48 samples per day
+- 30-minute time resolution (0.5 hours)
+- Full 24-hour coverage
+- Magnetic field component values in nanoTesla (nT)
+
+Source: magnetometer observations (location not specified)
+
+Project Goals
+
+- Test whether a simple neural network can learn daily geomagnetic variations.
+- Evaluate deep learning performance for geophysical modeling with small datasets.
+- Develop a baseline for further research, such as:
+  - geomagnetic storm prediction
+  - correlation with Kp/Dst indices
+  - comparison of physics-based vs data-driven models
+
+Files in the Repository
+
+File	Description
+`GenerateModel.py`	Main script to train models
+`Model_Bx.h5`	Trained model for Bx component
+`Model_By.h5`	Trained model for By component
+`Model_Bz.h5`	Trained model for Bz component
+`README.md`	Project documentation
+
+Usage
+
+1. Install dependencies
+
+```bash
 pip install tensorflow numpy scikit-learn
+```
 
-2. Jalankan training
+2. Run training
+
+```bash
 python GenerateModel.py
+```
 
-3. Memuat model
+3. Load a model
+
+```python
 from tensorflow import keras
 
 model = keras.models.load_model("Model_Bx.h5")
-pred = model.predict([[jam_dalam_decimal]])
+pred = model.predict([[time_in_decimal_hours]])
+```
 
-Potensi Pengembangan:
+Potential Improvements
 
-Menambah data dari observatorium geomagnetik internasional (INTERMAGNET).
+- Add data from international geomagnetic observatories (INTERMAGNET).
+- Add features such as:
+  - date
+  - solar activity indices
+  - ionospheric conditions
+- Use LSTM/Transformer architectures to capture deeper temporal dynamics.
+- Compare the model with physics-based simulations (IGRF, CHAOS models).
 
-Menambahkan fitur:
+License
 
-tanggal
+This repository is provided under a permissive modification-friendly license.
 
-indeks aktivitas matahari
+Contributors
 
-kondisi ionosfer
-
-Menggunakan arsitektur LSTM/Transformer untuk menangkap dinamika temporal lebih dalam.
-
-Membandingkan model dengan simulasi fisika (IGRF, CHAOS geomagnetic model).
-
-Lisensi:
-
-Repositori ini menggunakan lisensi bebas-modifikasi.
-Kontributor:
-
-Dikembangkan oleh: Jovan Alcoder
-Topik: AI untuk Geofisika / Pemodelan Medan Magnet Bumi
+Created by: Jovan Alcoder
+Topic: AI for Geophysics / Earth's Magnetic Field Modeling
+```
