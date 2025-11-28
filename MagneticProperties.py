@@ -29,9 +29,9 @@ inc = np.atan(Bz/np.sqrt((Bx*Bx)+(By*By)))
 inc = np.degrees(inc)
 mu_0 = 4e-7 * np.pi
 Bh = np.sqrt(Bx**2 + By**2)
-M = (3/mu_0)*np.sqrt(Bh**2+((1/4)*Bz**2))
+M = (3/mu_0)*np.sqrt((Bh*10**(-9))**2+((1/4)*(Bz*10**(-9))**2))
 m = M * (4/3) * np.pi * ((6371e3)**3)
-theta = np.asin((3*Bh)/(mu_0*M))
+theta = np.asin((3*Bh*10**(-9))/(mu_0*M))
 theta = np.degrees(theta)
 #show values
 print("=== REFERENCE MAGNETIC PROPERTIES ===")
