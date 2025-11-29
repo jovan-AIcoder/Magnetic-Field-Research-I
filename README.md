@@ -115,4 +115,3 @@ Created by: Jovan Alcoder
 Topic: AI for Geophysics / Earth's Magnetic Field Modeling
 
 Made in Indonesia
-```
